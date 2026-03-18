@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Harmonize - Formula-to-Music Converter</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+    <div class="glass-container">
+        <header>
+            <h1 class="glitch" data-text="Harmonize">Harmonize</h1>
+            <p class="subtitle">Transforming Mathematics into Melodies</p>
+        </header>
+
+        <main>
+            <section class="upload-section">
+                <!-- Song Library Section -->
+                <div class="card full-width" id="library-card">
+                    <div class="card-header">
+                        <div class="card-icon">📚</div>
+                        <h3>Choose from Library</h3>
+                        <p>Select a pre-defined melody to transform</p>
+                    </div>
+                    <div class="song-grid" id="song-library">
+                        <!-- Songs will be loaded here -->
+                        <div class="loading">Loading library...</div>
+                    </div>
+                </div>
+
+                <div class="card" id="tune-upload-card">
+                    <div class="card-icon">🎵</div>
+                    <h3>Or Upload Your Own</h3>
+                    <p>Select your MP3, WAV, or MIDI file</p>
+                    <input type="file" id="audio-input" accept=".mp3,.wav,.midi,.mid" hidden>
+                    <button class="btn-primary" onclick="document.getElementById('audio-input').click()">Choose
+                        File</button>
+                    <p id="audio-filename" class="file-name"></p>
+                </div>
+
+
+
+                <div class="card" id="formula-file-card">
+                    <div class="card-icon">📄</div>
+                    <h3>Upload Formulas</h3>
+                    <p>Select a .txt or .json file with formulas</p>
+                    <input type="file" id="formula-file-input" accept=".txt,.json" hidden>
+                    <button class="btn-primary" onclick="document.getElementById('formula-file-input').click()">Choose
+                        File</button>
+                    <p id="formula-filename" class="file-name"></p>
+                </div>
+            </section>
+
+            <section class="control-section">
+                <button id="process-btn" class="btn-generate">Generate Transformation</button>
+            </section>
+
+            <section id="results-section" class="results-section hidden">
+                <div class="result-card">
+                    <h3>Transformation Result</h3>
+                    <div class="visualizer-container">
+                        <canvas id="visualizer"></canvas>
+                    </div>
+                    <div class="chart-container">
+                        <h3>Formula-to-Music Mapping</h3>
+                        <canvas id="mapping-chart"></canvas>
+                    </div>
+                    <div class="audio-controls">
+                        <audio id="transformed-audio" controls></audio>
+                        <a id="download-link" class="btn-secondary" download>Download Result</a>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <p>&copy; 2026 Harmonize. Bridging Science and Sound.</p>
+        </footer>
+    </div>
+    <script src="script.js"></script>
+</body>
+
+</html>
