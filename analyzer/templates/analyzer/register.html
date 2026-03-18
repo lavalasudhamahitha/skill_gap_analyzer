@@ -1,0 +1,100 @@
+{% extends 'analyzer/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="auth-bg d-flex align-items-center py-5">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8 col-lg-6">
+                <div class="card border-0 shadow-lg auth-card glassmorphism">
+                    <div class="card-body p-5">
+                        <div class="text-center mb-4">
+                            <div class="auth-icon bg-primary-light text-primary-custom mx-auto mb-3">
+                                <i class="fa-solid fa-user-plus fa-2x"></i>
+                            </div>
+                            <h2 class="fw-bold font-heading">Create an Account</h2>
+                            <p class="text-muted">Start tracking your skill growth today</p>
+                        </div>
+                        <form method="POST">
+                            {% csrf_token %}
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label fw-semibold text-muted small text-uppercase">Full
+                                        Name</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text bg-white border-end-0 text-muted"><i
+                                                class="fa-solid fa-user"></i></span>
+                                        <input type="text" class="form-control border-start-0 ps-0" name="full_name"
+                                            placeholder="John Doe" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label fw-semibold text-muted small text-uppercase">Email
+                                        Address</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text bg-white border-end-0 text-muted"><i
+                                                class="fa-solid fa-envelope"></i></span>
+                                        <input type="email" class="form-control border-start-0 ps-0" name="email"
+                                            placeholder="name@example.com" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label fw-semibold text-muted small text-uppercase">Branch</label>
+                                <div class="input-group">
+                                    <span class="input-group-text bg-white border-end-0 text-muted"><i
+                                            class="fa-solid fa-graduation-cap"></i></span>
+                                    <select class="form-select border-start-0 ps-0 text-muted" name="branch" required>
+                                        <option value="" disabled selected>Select your branch</option>
+                                        {% for branch in branches %}
+                                        <option value="{{ branch.id }}">{{ branch.name }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label fw-semibold text-muted small text-uppercase">College
+                                    Name</label>
+                                <div class="input-group">
+                                    <span class="input-group-text bg-white border-end-0 text-muted"><i
+                                            class="fa-solid fa-building-columns"></i></span>
+                                    <input type="text" class="form-control border-start-0 ps-0" name="college_name"
+                                        placeholder="ABC Engineering College" required>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label
+                                        class="form-label fw-semibold text-muted small text-uppercase">Password</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text bg-white border-end-0 text-muted"><i
+                                                class="fa-solid fa-lock"></i></span>
+                                        <input type="password" class="form-control border-start-0 ps-0" name="password"
+                                            placeholder="••••••••" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-4">
+                                    <label class="form-label fw-semibold text-muted small text-uppercase">Confirm
+                                        Password</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text bg-white border-end-0 text-muted"><i
+                                                class="fa-solid fa-check"></i></span>
+                                        <input type="password" class="form-control border-start-0 ps-0"
+                                            name="confirm_password" placeholder="••••••••" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <button type="submit"
+                                class="btn btn-primary-custom w-100 py-2 fw-bold text-white mb-3 shadow-sm auth-btn">Register</button>
+                        </form>
+                        <div class="text-center">
+                            <p class="text-muted small mb-0">Already have an account? <a href="{% url 'login_view' %}"
+                                    class="text-primary-custom fw-semibold text-decoration-none">Login here</a></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

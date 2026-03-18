@@ -1,0 +1,113 @@
+{% extends 'analyzer/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="bg-light min-vh-100 py-5">
+    <div class="container">
+
+        <div class="text-center mb-5">
+            <h2 class="fw-bold text-dark-custom font-heading">Skill Gap Analyzer</h2>
+            <p class="text-muted">Discover what you need to learn to land your dream job.</p>
+        </div>
+
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
+                <div class="card border-0 shadow-lg rounded-4 overflow-hidden">
+
+                    <!-- Progress Stepper -->
+                    <div class="stepper-wrapper bg-white border-bottom p-4">
+                        <div class="stepper-item active" id="step1-indicator">
+                            <div class="step-counter">1</div>
+                            <div class="step-name">Branch</div>
+                        </div>
+                        <div class="stepper-item" id="step2-indicator">
+                            <div class="step-counter">2</div>
+                            <div class="step-name">Skills</div>
+                        </div>
+                        <div class="stepper-item" id="step3-indicator">
+                            <div class="step-counter">3</div>
+                            <div class="step-name">Job Role</div>
+                        </div>
+                    </div>
+
+                    <div class="card-body p-5">
+                        <form id="analyzerForm">
+                            {% csrf_token %}
+                            <!-- Step 1: Branch Selection -->
+                            <div id="step1" class="form-step active animate-fade-in-right">
+                                <h4 class="fw-bold mb-4"><i
+                                        class="fa-solid fa-graduation-cap text-primary-custom me-2"></i>Select Your
+                                    Branch</h4>
+                                <div class="row g-3">
+                                    {% for branch in branches %}
+                                    <div class="col-md-6 col-lg-4">
+                                        <label class="w-100 h-100">
+                                            <input type="radio" name="branch" class="card-input-element d-none"
+                                                value="{{ branch.id }}" {% if user_profile.branch_id == branch.id %}checked{% endif %}>
+                                            <div class="card card-input border-2 h-100 p-3 shadow-sm text-center">
+                                                <h6 class="mb-0 fw-semibold">{{ branch.name }}</h6>
+                                            </div>
+                                        </label>
+                                    </div>
+                                    {% endfor %}
+                                </div>
+                                <div class="d-flex justify-content-end mt-4">
+                                    <button type="button" class="btn btn-primary-custom px-4 py-2 fw-bold"
+                                        onclick="nextStep(2)">Next Step <i
+                                            class="fa-solid fa-arrow-right ms-2"></i></button>
+                                </div>
+                            </div>
+
+                            <!-- Step 2: Skills Selection -->
+                            <div id="step2" class="form-step d-none animate-fade-in-right">
+                                <h4 class="fw-bold mb-4"><i
+                                        class="fa-solid fa-check-double text-success me-2"></i>Select Your Current
+                                    Skills</h4>
+                                <p class="text-muted small mb-4">Select all the skills you are currently confident in.
+                                </p>
+
+                                <div class="text-center d-none" id="skills-loader">
+                                    <div class="spinner-border text-primary-custom" role="status"></div>
+                                    <p class="mt-2 text-muted">Loading skills for your branch...</p>
+                                </div>
+
+                                <div class="row g-3" id="skills-container">
+                                    <!-- Skills will be loaded here dynamically via JS -->
+                                </div>
+
+                                <div class="d-flex justify-content-between mt-4">
+                                    <button type="button" class="btn btn-outline-secondary px-4 py-2 fw-bold"
+                                        onclick="prevStep(1)"><i class="fa-solid fa-arrow-left me-2"></i> Back</button>
+                                    <button type="button" class="btn btn-primary-custom px-4 py-2 fw-bold"
+                                        onclick="nextStep(3)">Next Step <i
+                                            class="fa-solid fa-arrow-right ms-2"></i></button>
+                                </div>
+                            </div>
+
+                            <!-- Step 3: Job Role Selection -->
+                            <div id="step3" class="form-step d-none animate-fade-in-right">
+                                <h4 class="fw-bold mb-4"><i class="fa-solid fa-briefcase text-info me-2"></i>Select
+                                    Target Job Role</h4>
+                                <p class="text-muted small mb-4">Choose the role you want to apply for to see the
+                                    required skills gap.</p>
+
+                                <div class="row g-3" id="roles-container">
+                                    <!-- Roles will be loaded here dynamically via JS -->
+                                </div>
+
+                                <div class="d-flex justify-content-between mt-4">
+                                    <button type="button" class="btn btn-outline-secondary px-4 py-2 fw-bold"
+                                        onclick="prevStep(2)"><i class="fa-solid fa-arrow-left me-2"></i> Back</button>
+                                    <button type="button" class="btn btn-success px-4 py-2 fw-bold"
+                                        onclick="submitAnalysis()" id="submitAnalysisBtn">Submit & Show Analysis <i
+                                            class="fa-solid fa-chart-pie ms-2"></i></button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

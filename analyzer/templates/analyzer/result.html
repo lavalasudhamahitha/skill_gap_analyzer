@@ -1,0 +1,84 @@
+{% extends 'analyzer/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="bg-light min-vh-100 py-5">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="fw-bold text-dark-custom font-heading">Skill Gap Analysis Result</h2>
+            <p class="text-muted">For {{ selection.job_role.name }}</p>
+        </div>
+
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <!-- Result Overview Card -->
+                <div class="card border-0 shadow-lg rounded-4 overflow-hidden mb-4">
+                    <div class="card-body p-5 text-center">
+                        <h4 class="fw-bold mb-4">Overall Match</h4>
+
+                        <div class="progress mb-3" style="height: 30px; border-radius: 15px;">
+                            <div class="progress-bar {% if selection.match_percentage >= 80 %}bg-success{% elif selection.match_percentage >= 50 %}bg-warning{% else %}bg-danger{% endif %} progress-bar-striped progress-bar-animated"
+                                role="progressbar" style="width: {{ selection.match_percentage }}%;"
+                                aria-valuenow="{{ selection.match_percentage }}" aria-valuemin="0" aria-valuemax="100">
+                                <span class="fw-bold fs-6">{{ selection.match_percentage }}%</span>
+                            </div>
+                        </div>
+
+                        {% if selection.match_percentage == 100 %}
+                        <div class="alert alert-success mt-4 border-0 shadow-sm" role="alert">
+                            <i class="fa-solid fa-circle-check fa-2x mb-2"></i>
+                            <h5>Great! You already have the required skills.</h5>
+                            <p class="mb-0">You can confidently apply for this job role.</p>
+                        </div>
+                        {% else %}
+                        <p class="text-muted mt-3">You need to learn a few more skills to be fully prepared for this
+                            role.</p>
+                        {% endif %}
+                    </div>
+                </div>
+
+                {% if missing_skills %}
+                <!-- Missing Skills & Resources Card -->
+                <div class="card border-0 shadow-sm rounded-4 mb-4">
+                    <div class="card-header bg-white p-4 border-bottom border-light">
+                        <h5 class="fw-bold mb-0"><i
+                                class="fa-solid fa-triangle-exclamation text-warning me-2"></i>Skills to Develop</h5>
+                    </div>
+                    <div class="card-body p-0">
+                        <ul class="list-group list-group-flush rounded-bottom-4">
+                            {% for skill_obj in missing_skills %}
+                            <li class="list-group-item p-4">
+                                <div class="d-flex justify-content-between align-items-center mb-3">
+                                    <h5 class="fw-bold text-dark-custom mb-0">{{ skill_obj.name }}</h5>
+                                </div>
+                                <div class="row g-3">
+                                    <div class="col-sm-6">
+                                        <a href="https://www.youtube.com/results?search_query={{ skill_obj.name }}+tutorial+for+beginners"
+                                            target="_blank" class="btn btn-outline-danger w-100 rounded-pill">
+                                            <i class="fa-brands fa-youtube me-2"></i>Video Tutorial
+                                        </a>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <a href="{{ skill_obj.link }}" target="_blank" class="btn btn-outline-primary w-100 rounded-pill">
+                                            <i class="fa-solid fa-file-lines me-2"></i>Study Notes & Resources
+                                        </a>
+                                    </div>
+                                </div>
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+                {% endif %}
+
+                <div class="text-center mt-5">
+                    <a href="{% url 'analyzer_tool' %}"
+                        class="btn btn-primary-custom px-5 py-3 rounded-pill fw-bold shadow-sm">
+                        <i class="fa-solid fa-redo me-2"></i>Analyze Another Role
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

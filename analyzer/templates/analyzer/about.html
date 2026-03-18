@@ -1,0 +1,40 @@
+{% extends 'analyzer/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8 text-center mb-5 animate-fade-in-up">
+            <h1 class="display-5 fw-bold text-dark-custom">About the Project</h1>
+            <p class="lead text-muted">Bridging the gap between academic learning and industry requirements.</p>
+        </div>
+    </div>
+
+    <div class="row align-items-center mb-5 animate-fade-in-up delay-1">
+        <div class="col-md-6 mb-4 mb-md-0">
+            <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                alt="Students Working" class="img-fluid rounded-4 shadow-lg">
+        </div>
+        <div class="col-md-6 ps-md-5">
+            <h3 class="fw-bold mb-3 text-dark-custom">The Problem</h3>
+            <p class="text-muted fs-5">Many diploma and engineering students graduate with theoretical knowledge but
+                lack the specific practical skills required by employers. This creates a "skill gap" that makes it
+                difficult for fresh graduates to secure internships and jobs in their desired fields.</p>
+        </div>
+    </div>
+
+    <div class="row align-items-center animate-fade-in-up delay-2">
+        <div class="col-md-6 order-md-2 mb-4 mb-md-0">
+            <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                alt="Career Path" class="img-fluid rounded-4 shadow-lg">
+        </div>
+        <div class="col-md-6 order-md-1 pe-md-5">
+            <h3 class="fw-bold mb-3 text-dark-custom">Our Solution</h3>
+            <p class="text-muted fs-5">The Internship Skill Gap Analyzer helps students systematically identify these
+                missing skills. By selecting their academic branch and comparing their current skillset with the
+                requirements of specific job roles, students receive a personalized roadmap. We provide targeted
+                resources like tutorial links and reference materials to help students bridge this gap efficiently.</p>
+        </div>
+    </div>
+</div>
+{% endblock %}
